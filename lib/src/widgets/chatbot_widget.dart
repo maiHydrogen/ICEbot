@@ -88,19 +88,17 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   }
 
   Widget _buildMessageList() {
-    return ChangeNotifierBuilder<ChatService>(
-      notifier: _chatService,
-      builder: (context, chatService, _) {
+    return AnimatedBuilder(
+      animation:
+          _chatService,
+      builder: (context, child) {
         return ListView.builder(
           controller: _scrollController,
           padding: const EdgeInsets.all(16),
-          itemCount: chatService.messages.length,
+          itemCount: _chatService.messages.length,
           itemBuilder: (context, index) {
-            final message = chatService.messages[index];
-            return ChatBubble(
-              message: message,
-              config: widget.config,
-            );
+            final message = _chatService.messages[index];
+            return ChatBubble(message: message, config: widget.config);
           },
         );
       },
@@ -108,7 +106,9 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   }
 
   Widget _buildSuggestions() {
-    final suggestions = _faqService.getSuggestions(widget.config.maxSuggestions);
+    final suggestions = _faqService.getSuggestions(
+      widget.config.maxSuggestions,
+    );
     if (suggestions.isEmpty) return const SizedBox.shrink();
 
     return Container(
@@ -148,7 +148,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
                   borderRadius: BorderRadius.circular(25),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16, 
+                  horizontal: 16,
                   vertical: 12,
                 ),
               ),
