@@ -14,11 +14,11 @@ class ChatbotConfig {
   final Duration typingDelay;
 
   const ChatbotConfig({
-    this.botName = 'Assistant',
-    this.welcomeMessage = 'Hello! How can I help you today?',
+    this.botName = 'ICEBot',
+    this.welcomeMessage = 'Hello! I\'m ICEBot, How can I help you today?',
     this.noAnswerMessage = 'I\'m sorry, I don\'t have an answer for that question.',
-    this.primaryColor = Colors.blue,
-    this.secondaryColor = Colors.grey,
+    this.primaryColor = const Color.fromARGB(1, 238, 28, 34),
+    this.secondaryColor = const Color.fromARGB(1, 115, 15, 17),
     this.userMessageStyle,
     this.botMessageStyle,
     this.showTimestamp = false,
