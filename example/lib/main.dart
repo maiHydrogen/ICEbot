@@ -123,7 +123,7 @@ class _MyHomePageState extends State<MyHomePage> {
             children: [
               Image(
                 image: AssetImage(
-                  'images/logo2.png',
+                  'images/logo1.png',
                   package: 'icebot', // Specify package name
                 ),
                 height: 164,
@@ -147,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Open Chatbot',
         child:  Image(
           image: AssetImage(
-            'images/logo2.png',
+            'images/plus.png',
             package: 'icebot',
           ),
           height: 32,
