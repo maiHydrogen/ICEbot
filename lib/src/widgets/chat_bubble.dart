@@ -5,20 +5,18 @@ class ChatBubble extends StatelessWidget {
   final ChatMessage message;
   final ChatbotConfig config;
 
-  const ChatBubble({
-    Key? key,
-    required this.message,
-    required this.config,
-  }) : super(key: key);
+  const ChatBubble({super.key, required this.message, required this.config});
 
   @override
   Widget build(BuildContext context) {
     final isUser = message.type == MessageType.user;
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        mainAxisAlignment: isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (!isUser) _buildAvatar(),
@@ -67,13 +65,14 @@ class ChatBubble extends StatelessWidget {
   Widget _buildAvatar() {
     final isUser = message.type == MessageType.user;
     return CircleAvatar(
-      radius: 16,
+      radius: 24,
       backgroundColor: isUser ? config.primaryColor : config.secondaryColor,
-      child: Icon(
-        isUser ? Icons.person : Icons.smart_toy,
-        size: 18,
-        color: Colors.white,
-      ),
+      child: isUser
+          ? Icon(Icons.person, size: 24, color: Colors.white)
+          : Image(
+              image: AssetImage("images/plus.png", package: "icebot"),
+              height: 24,
+            ),
     );
   }
 
