@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icebot/index.dart';
 
@@ -148,27 +149,38 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: 'Type your question...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(24),
+                    border: Border.all(color: Colors.black45),
+                  ),
+                  child: TextField(
+                    controller: _controller,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    decoration:  InputDecoration(
+                      hintText: 'Type your question here...',
+                      border: InputBorder.none,
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 12,
+                      ),
+                    ),
+                    autofocus: true,
+                    onSubmitted: _sendMessage,
+                  ),
                 ),
               ),
-              onSubmitted: _sendMessage,
-            ),
-          ),
           const SizedBox(width: 8),
-          FloatingActionButton(
-            mini: true,
-            backgroundColor: widget.config.primaryColor,
+          ElevatedButton(
             onPressed: () => _sendMessage(_controller.text),
-            child: const Icon(Icons.send, color: Colors.black),
+            style: ElevatedButton.styleFrom(
+              shape: const CircleBorder(),minimumSize: Size(48,48),
+              elevation: 3,
+              padding: const EdgeInsets.all(0),
+            ),
+            child: Icon(CupertinoIcons.paperplane_fill, color: Colors.black, size: 24,),
           ),
         ],
       ),
