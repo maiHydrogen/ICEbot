@@ -8,12 +8,12 @@ class ChatbotWidget extends StatefulWidget {
   final double? width;
 
   const ChatbotWidget({
-    Key? key,
+    super.key,
     required this.faqs,
     this.config = const ChatbotConfig(),
     this.height,
     this.width,
-  }) : super(key: key);
+  });
 
   @override
   State<ChatbotWidget> createState() => _ChatbotWidgetState();
@@ -34,20 +34,20 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height ?? 500,
-      width: widget.width ?? double.infinity,
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          _buildHeader(),
-          Expanded(child: _buildMessageList()),
-          if (widget.config.enableSuggestions) _buildSuggestions(),
-          _buildInputArea(),
-        ],
+    return Scaffold(
+      body: SafeArea(
+        child: SizedBox(
+          height: widget.height ,
+          width: widget.width,
+          child: Column(
+            children: [
+              _buildHeader(),
+              Expanded(child: _buildMessageList()),
+              if (widget.config.enableSuggestions) _buildSuggestions(),
+              _buildInputArea(),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -66,13 +66,16 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
         children: [
           CircleAvatar(
             backgroundColor: Colors.white,
-            child: Icon(Icons.chat, color: widget.config.primaryColor),
+            child: Image(
+              image: AssetImage("images/plus.png", package: "icebot"),
+              height: 32,
+            ),
           ),
           const SizedBox(width: 12),
           Text(
             widget.config.botName,
             style: const TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
@@ -80,7 +83,12 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
           const Spacer(),
           IconButton(
             onPressed: _chatService.clearChat,
-            icon: const Icon(Icons.refresh, color: Colors.white),
+            icon: const Icon(Icons.refresh, color: Colors.black),
+          ),
+          const Spacer(),
+          IconButton(
+            onPressed: _scrollToBottom,
+            icon: const Icon(Icons.arrow_circle_down_rounded, color: Colors.black),
           ),
         ],
       ),
@@ -160,7 +168,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
             mini: true,
             backgroundColor: widget.config.primaryColor,
             onPressed: () => _sendMessage(_controller.text),
-            child: const Icon(Icons.send, color: Colors.white),
+            child: const Icon(Icons.send, color: Colors.black),
           ),
         ],
       ),

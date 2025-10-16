@@ -24,6 +24,6 @@ class ChatbotConfig {
     this.showTimestamp = false,
     this.enableSuggestions = true,
     this.maxSuggestions = 3,
-    this.typingDelay = const Duration(milliseconds: 1000),
+    this.typingDelay = const Duration(milliseconds: 100),
   });
 }

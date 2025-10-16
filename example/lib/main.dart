@@ -54,61 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
-  // Flag to prevent multiple modal calls
-  bool _isModalShown = false;
-
   @override
   void initState() {
     super.initState();
-    // Remove the automatic modal show - let user trigger it manually
   }
-
-  // Fixed function signature and implementation
-  void _showChatbot() {
-    // Prevent multiple modals if one is already shown
-    if (_isModalShown) return;
-
-    setState(() {
-      _isModalShown = true;
-    });
-
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true, // Allow full screen if needed
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-      ),
-      builder: (BuildContext context) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.7,
-          maxChildSize: 0.95,
-          minChildSize: 0.5,
-          expand: false,
-          builder: (context, scrollController) {
-            return ChatbotWidget(
-              faqs: _faqs,
-              config: const ChatbotConfig(
-                botName: 'Help Assistant',
-                primaryColor: Colors.blue,
-                enableSuggestions: true,
-                showTimestamp: true,
-                maxSuggestions: 3,
-              ),
-              height: double.infinity,
-            );
-          },
-        );
-      },
-    ).whenComplete(() {
-      // Reset flag when modal is dismissed
-      if (mounted) {
-        setState(() {
-          _isModalShown = false;
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,13 +92,24 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _showChatbot, // Fixed: pass function reference, not call it
-        tooltip: 'Open Chatbot',
-        child:  Image(
-          image: AssetImage(
-            'images/plus.png',
-            package: 'icebot',
-          ),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChatbotWidget(
+                faqs: _faqs,
+                config: ChatbotConfig(
+                  botName: 'ICE Bot',
+                  enableSuggestions: true,
+                  showTimestamp: true,
+                  maxSuggestions: 3,
+                ),
+              ),
+            ),
+          );
+        },
+        child: Image(
+          image: AssetImage('images/plus.png', package: 'icebot'),
           height: 32,
         ),
       ),
