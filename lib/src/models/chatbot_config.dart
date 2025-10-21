@@ -15,7 +15,7 @@ class ChatbotConfig {
 
   const ChatbotConfig({
     this.botName = 'ICEBot',
-    this.welcomeMessage = 'Hello! I\'m ICEBot, How can I help you today?',
+    this.welcomeMessage = 'Hello! I\'m ICEBot, Please choose one of the following categories that suits your query or just type your own query?',
     this.noAnswerMessage = 'I\'m sorry, I don\'t have an answer for that question.',
     this.primaryColor = const Color.fromARGB(1, 238, 28, 34),
     this.secondaryColor = const Color.fromARGB(1, 115, 15, 17),

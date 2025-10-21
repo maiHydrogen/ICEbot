@@ -31,22 +31,34 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
     super.initState();
     _faqService = FAQService(widget.faqs);
     _chatService = ChatService(_faqService, widget.config);
+    _chatService.addListener(_autoScrollToBottom);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          height: widget.height ,
-          width: widget.width,
-          child: Column(
-            children: [
-              _buildHeader(),
-              Expanded(child: _buildMessageList()),
-              if (widget.config.enableSuggestions) _buildSuggestions(),
-              _buildInputArea(),
-            ],
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        body: SafeArea(
+          child: SizedBox(
+            height: widget.height,
+            width: widget.width,
+            child: Column(
+              children: [
+                _buildHeader(),
+                CircleAvatar(
+                  radius: 70,
+                  backgroundColor: Colors.transparent,
+                  child: Image(
+                    image: AssetImage("images/plus.png", package: "icebot"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Expanded(child: _buildMessageList()),
+                if (widget.config.enableSuggestions) _buildSuggestions(),
+                _buildInputArea(),
+              ],
+            ),
           ),
         ),
       ),
@@ -65,31 +77,31 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Image(
-              image: AssetImage("images/plus.png", package: "icebot"),
-              height: 32,
-            ),
+          IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
-          const SizedBox(width: 12),
-          Text(
-            widget.config.botName,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+          const Spacer(),
+          Column(
+            children: [
+              Text(
+                widget.config.botName,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                "v0.0.1",
+                style: const TextStyle(color: Colors.black, fontSize: 12),
+              ),
+            ],
           ),
           const Spacer(),
           IconButton(
             onPressed: _chatService.clearChat,
             icon: const Icon(Icons.refresh, color: Colors.black),
-          ),
-          const Spacer(),
-          IconButton(
-            onPressed: _scrollToBottom,
-            icon: const Icon(Icons.arrow_circle_down_rounded, color: Colors.black),
           ),
         ],
       ),
@@ -98,10 +110,11 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
 
   Widget _buildMessageList() {
     return AnimatedBuilder(
-      animation:
-          _chatService,
+      animation: _chatService,
       builder: (context, child) {
         return ListView.builder(
+          shrinkWrap: true,
+          physics: ClampingScrollPhysics(),
           controller: _scrollController,
           padding: const EdgeInsets.all(16),
           itemCount: _chatService.messages.length,
@@ -142,45 +155,50 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
 
   Widget _buildInputArea() {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         border: Border(top: BorderSide(color: Colors.grey.shade300)),
       ),
       child: Row(
         children: [
           Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(color: Colors.black45),
-                  ),
-                  child: TextField(
-                    controller: _controller,
-                    keyboardType: TextInputType.multiline,
-                    maxLines: null,
-                    decoration:  InputDecoration(
-                      hintText: 'Type your question here...',
-                      border: InputBorder.none,
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 12,
-                      ),
-                    ),
-                    autofocus: true,
-                    onSubmitted: _sendMessage,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: Colors.black45),
+              ),
+              child: TextField(
+                controller: _controller,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: InputDecoration(
+                  hintText: 'Type your question here...',
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 12,
                   ),
                 ),
+                autofocus: true,
+                onSubmitted: _sendMessage,
               ),
+            ),
+          ),
           const SizedBox(width: 8),
           ElevatedButton(
             onPressed: () => _sendMessage(_controller.text),
             style: ElevatedButton.styleFrom(
-              shape: const CircleBorder(),minimumSize: Size(48,48),
+              shape: const CircleBorder(),
+              minimumSize: Size(48, 48),
               elevation: 3,
               padding: const EdgeInsets.all(0),
             ),
-            child: Icon(CupertinoIcons.paperplane_fill, color: Colors.black, size: 24,),
+            child: Icon(
+              CupertinoIcons.paperplane_fill,
+              color: Colors.black,
+              size: 24,
+            ),
           ),
         ],
       ),
@@ -191,11 +209,11 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
     if (text.trim().isNotEmpty) {
       _chatService.sendMessage(text.trim());
       _controller.clear();
-      _scrollToBottom();
     }
   }
 
-  void _scrollToBottom() {
+  void _autoScrollToBottom() {
+    // Wait for the message to be rendered, then scroll
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
@@ -211,6 +229,7 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
   void dispose() {
     _controller.dispose();
     _scrollController.dispose();
+    _chatService.removeListener(_autoScrollToBottom);
     super.dispose();
   }
 }
