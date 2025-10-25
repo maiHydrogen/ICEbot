@@ -46,14 +46,6 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
             child: Column(
               children: [
                 _buildHeader(),
-                CircleAvatar(
-                  radius: 70,
-                  backgroundColor: Colors.transparent,
-                  child: Image(
-                    image: AssetImage("images/plus.png", package: "icebot"),
-                    fit: BoxFit.fill,
-                  ),
-                ),
                 Expanded(child: _buildMessageList()),
                 if (widget.config.enableSuggestions) _buildSuggestions(),
                 _buildInputArea(),
@@ -112,20 +104,42 @@ class _ChatbotWidgetState extends State<ChatbotWidget> {
     return AnimatedBuilder(
       animation: _chatService,
       builder: (context, child) {
-        return ListView.builder(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
+        return CustomScrollView(
           controller: _scrollController,
-          padding: const EdgeInsets.all(16),
-          itemCount: _chatService.messages.length,
-          itemBuilder: (context, index) {
-            final message = _chatService.messages[index];
-            return ChatBubble(message: message, config: widget.config);
-          },
+          slivers: [
+            // Avatar as first sliver
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: CircleAvatar(
+                  radius: 70,
+                  backgroundColor: Colors.transparent,
+                  child: Image(
+                    image: AssetImage("images/plus.png", package: "icebot"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+            ),
+            // Messages list as second sliver
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                    final message = _chatService.messages[index];
+                    return ChatBubble(message: message, config: widget.config);
+                  },
+                  childCount: _chatService.messages.length, // ← This ensures proper bounds
+                ),
+              ),
+            ),
+          ],
         );
       },
     );
   }
+
 
   Widget _buildSuggestions() {
     final suggestions = _faqService.getSuggestions(
