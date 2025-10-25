@@ -17,7 +17,7 @@ class ChatBubble extends StatelessWidget {
         mainAxisAlignment: isUser
             ? MainAxisAlignment.end
             : MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           if (!isUser) _buildAvatar(),
           if (!isUser) const SizedBox(width: 8),
@@ -25,7 +25,7 @@ class ChatBubble extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: isUser ? config.primaryColor : Colors.grey.shade200,
+                color: isUser ? Colors.white : Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(16).copyWith(
                   bottomLeft: isUser ? const Radius.circular(16) : Radius.zero,
                   bottomRight: isUser ? Radius.zero : const Radius.circular(16),
@@ -37,7 +37,7 @@ class ChatBubble extends StatelessWidget {
                   Text(
                     message.content,
                     style: TextStyle(
-                      color: isUser ? Colors.white : Colors.black87,
+                      color: Colors.black87,
                       fontSize: 14,
                     ),
                   ),
@@ -46,7 +46,7 @@ class ChatBubble extends StatelessWidget {
                     Text(
                       _formatTime(message.timestamp),
                       style: TextStyle(
-                        color: isUser ? Colors.white70 : Colors.grey,
+                        color:  Colors.grey,
                         fontSize: 11,
                       ),
                     ),
@@ -65,13 +65,13 @@ class ChatBubble extends StatelessWidget {
   Widget _buildAvatar() {
     final isUser = message.type == MessageType.user;
     return CircleAvatar(
-      radius: 24,
-      backgroundColor: isUser ? config.primaryColor : config.secondaryColor,
+      radius: 18,
+      backgroundColor: isUser ? Colors.grey : Colors.white,
       child: isUser
           ? Icon(Icons.person, size: 24, color: Colors.white)
           : Image(
               image: AssetImage("images/plus.png", package: "icebot"),
-              height: 24,
+              height: 36,
             ),
     );
   }
