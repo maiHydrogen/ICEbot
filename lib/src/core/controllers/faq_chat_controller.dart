@@ -5,6 +5,7 @@ import '../models/faq_item.dart';
 import '../repositories/faq_repository.dart';
 import '../services/faq_search_engine.dart';
 import '../../config/icebot_config.dart';
+import 'package:flutter/foundation.dart';
 
 class FaqChatController extends ChangeNotifier {
   final FaqRepository repository;
