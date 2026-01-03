@@ -1,20 +1,17 @@
 # ICEbot FAQ - Flutter Package
 
 A production-ready, intelligent FAQ chatbot package for Flutter applications with advanced search capabilities and beautiful Material Design UI.
-## Getting started
-
-<img src="https://r2cdn.perplexity.ai/pplx-full-logo-primary-dark%402x.png" style="height:64px;margin-right:32px"/>
 
 ## Features
 
-- **🎯 Smart Search**: Multi-strategy matching (exact keywords, fuzzy matching, token overlap, alternative questions) with configurable similarity thresholds[^9]
-- **💬 Beautiful UI**: Material Design chat interface with typing indicators, message bubbles, and smooth animations[^3]
-- **🎨 Fully Customizable**: Theme-able UI components and configurable bot behavior[^5]
-- **📱 Production Ready**: No global singletons, proper state management, null-safe, and testable architecture[^8]
-- **🔌 Flexible Data Sources**: Load FAQs from JSON assets, in-memory lists, or easily extend for remote sources[^9]
-- **🏷️ Rich FAQ Model**: Support for categories, pinned FAQs, popularity, related questions, and alternative phrasings[^7]
-- **📊 Contextual Suggestions**: Dynamic suggestion chips based on pinned/trending FAQs and conversation context[^11]
-- **♿ Accessible**: Semantic labels, keyboard navigation, and copy-to-clipboard support
+- **Smart Search**: Multi-strategy matching (exact keywords, fuzzy matching, token overlap, alternative questions) with configurable similarity thresholds
+- **Beautiful UI**: Material Design chat interface with typing indicators, message bubbles, and smooth animations
+- **Fully Customizable**: Theme-able UI components and configurable bot behavior
+- **Production Ready**: No global singletons, proper state management, null-safe, and testable architecture
+- **Flexible Data Sources**: Load FAQs from JSON assets, in-memory lists, or easily extend for remote sources
+- **Rich FAQ Model**: Support for categories, pinned FAQs, popularity, related questions, and alternative phrasings
+- **Contextual Suggestions**: Dynamic suggestion chips based on pinned/trending FAQs and conversation context
+- **Accessible**: Semantic labels, keyboard navigation, and copy-to-clipboard support
 
 
 ## Installation
@@ -44,7 +41,7 @@ flutter pub get
 
 ### 1. Create FAQ JSON File
 
-Create `assets/faqs.json` matching the `FaqItem` schema:[^7]
+Create `assets/faqs.json` matching the `FaqItem` schema:
 
 ```json
 {
@@ -151,7 +148,7 @@ FaqFloatingButton.fromFaqList(
 
 ### Advanced: Custom Controller
 
-For full control over the chatbot lifecycle and state:[^3]
+For full control over the chatbot lifecycle and state:
 
 ```dart
 class MyHomePage extends StatefulWidget {
@@ -355,29 +352,4 @@ MIT License - see LICENSE file for details
 ***
 
 **Built with ❤️ for ICEcard by the ICEcard Team**
-<span style="display:none">[^1][^10][^2][^4][^6]</span>
-
-<div align="center">⁂</div>
-
-[^1]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/962be7d2-504e-4372-b013-90e3a80035e7/chat_services.dart
-
-[^2]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/83fb42f9-3b4b-47da-a73e-fe0283473f71/chat_message.dart
-
-[^3]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/8d0f6046-ffc2-463c-86a5-4edf913e8acb/chatbot_widget.dart
-
-[^4]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/ecb720fc-7c20-48f8-86a1-c9a98bebb38f/index.dart
-
-[^5]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/0ec2ae7c-71d7-4b8e-8068-3b6f91a8b553/chatbot_config.dart
-
-[^6]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/4ddd3c30-80c6-4a52-ad63-4e9815f961df/chat_bubble.dart
-
-[^7]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/2a3f90a8-150c-481b-bb04-5a37fc987f78/faq_items.dart
-
-[^8]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/b1381c91-06e4-43cd-81b7-602d8cd7f21b/faq_loader.dart
-
-[^9]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/c371dbb8-f90c-4a1d-82e2-e6375cf40b72/improved_faq_manager.dart
-
-[^10]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/d4ce67b8-1e4e-4750-bf03-146c2aef8ad3/faqs.json
-
-[^11]: https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/72234751/61a28d84-9a29-4056-91ec-6365ec71d106/faq_services.dart
 
