@@ -10,6 +10,10 @@ class StringMatcher {
   }
 
   static int _levenshteinDistance(String a, String b) {
+    if (a == b) return 0;
+    if (a.isEmpty) return b.length;
+    if (b.isEmpty) return a.length;
+
     final matrix = List.generate(
       a.length + 1,
           (i) => List<int>.filled(b.length + 1, 0),
@@ -26,9 +30,9 @@ class StringMatcher {
       for (int j = 1; j <= b.length; j++) {
         final cost = a[i - 1] == b[j - 1] ? 0 : 1;
         matrix[i][j] = [
-          matrix[i - 1][j] + 1,
-          matrix[i][j - 1] + 1,
-          matrix[i - 1][j - 1] + cost,
+          matrix[i - 1][j] + 1,      // deletion
+          matrix[i][j - 1] + 1,      // insertion
+          matrix[i - 1][j - 1] + cost, // substitution
         ].reduce((a, b) => a < b ? a : b);
       }
     }
@@ -40,11 +44,16 @@ class StringMatcher {
     return text
         .toLowerCase()
         .trim()
-        .replaceAll(RegExp(r'[^\w\s]'), '')
-        .replaceAll(RegExp(r'\s+'), ' ');
+        .replaceAll(RegExp(r'[^\w\s]'), ' ')  // Replace punctuation with space
+        .replaceAll(RegExp(r'\s+'), ' ')       // Collapse multiple spaces
+        .trim();
   }
 
   static List<String> tokenize(String text) {
-    return normalize(text).split(' ').where((t) => t.isNotEmpty).toList();
+    final normalized = normalize(text);
+    return normalized
+        .split(' ')
+        .where((t) => t.isNotEmpty && t.length > 1) // Filter out single chars
+        .toList();
   }
 }

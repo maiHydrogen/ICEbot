@@ -4,8 +4,9 @@ import 'string_matcher.dart';
 class SearchResult {
   final FaqItem faq;
   final double score;
+  final String matchType;
 
-  const SearchResult(this.faq, this.score);
+  const SearchResult(this.faq, this.score, this.matchType);
 }
 
 class FaqSearchEngine {
@@ -23,7 +24,6 @@ class FaqSearchEngine {
 
     for (final faq in _allFaqs) {
       _idIndex[faq.id] = faq;
-
       final category = faq.category ?? 'General';
       _categoryIndex.putIfAbsent(category, () => []).add(faq);
     }
@@ -42,42 +42,119 @@ class FaqSearchEngine {
         : _allFaqs;
 
     final results = <SearchResult>[];
+    final queryLower = query.toLowerCase().trim();
     final queryNormalized = StringMatcher.normalize(query);
     final queryTokens = StringMatcher.tokenize(query);
 
     for (final faq in candidates) {
-      double score = 0.0;
+      SearchResult? result = _matchFaq(
+        faq,
+        queryLower,
+        queryNormalized,
+        queryTokens,
+        threshold,
+      );
 
-      // Exact keyword match (highest priority)
-      if (_hasExactKeywordMatch(faq, queryNormalized)) {
-        score = 1.0;
-      }
-      // Alternative question match
-      else if (_matchesAlternativeQuestion(faq, queryNormalized)) {
-        score = 0.95;
-      }
-      // Token overlap in question
-      else if (_hasTokenOverlap(faq, queryTokens)) {
-        score = 0.7 + (_calculateTokenOverlapScore(faq, queryTokens) * 0.2);
-      }
-      // Fuzzy match on question
-      else {
-        final similarity = StringMatcher.calculateSimilarity(
-          queryNormalized,
-          StringMatcher.normalize(faq.question),
-        );
-        if (similarity >= threshold) {
-          score = similarity * 0.6;
-        }
-      }
-
-      if (score > 0) {
-        results.add(SearchResult(faq, score));
+      if (result != null) {
+        results.add(result);
       }
     }
 
     results.sort((a, b) => b.score.compareTo(a.score));
     return results.take(maxResults).map((r) => r.faq).toList();
+  }
+
+  SearchResult? _matchFaq(
+      FaqItem faq,
+      String queryLower,
+      String queryNormalized,
+      List<String> queryTokens,
+      double threshold,
+      ) {
+    final questionLower = faq.question.toLowerCase().trim();
+    final questionNormalized = StringMatcher.normalize(faq.question);
+
+    // Strategy 1: Exact match
+    if (queryLower == questionLower) {
+      return SearchResult(faq, 1.0, 'exact_match');
+    }
+
+    // Strategy 2: Normalized exact match
+    if (questionNormalized == queryNormalized) {
+      return SearchResult(faq, 0.99, 'normalized_exact');
+    }
+
+    // Strategy 3: Substring match
+    if (questionNormalized.contains(queryNormalized) && queryNormalized.length > 5) {
+      return SearchResult(faq, 0.95, 'question_contains_query');
+    }
+    if (queryNormalized.contains(questionNormalized) && questionNormalized.length > 5) {
+      return SearchResult(faq, 0.93, 'query_contains_question');
+    }
+
+    // Strategy 4: Alternative questions match
+    for (final alt in faq.alternativeQuestions) {
+      final altLower = alt.toLowerCase().trim();
+      final altNormalized = StringMatcher.normalize(alt);
+
+      if (queryLower == altLower || queryNormalized == altNormalized) {
+        return SearchResult(faq, 0.98, 'exact_alternative');
+      }
+
+      if (altNormalized.contains(queryNormalized) && queryNormalized.length > 5) {
+        return SearchResult(faq, 0.92, 'alternative_contains');
+      }
+    }
+
+    // Strategy 5: Multiple keyword matches
+    int keywordMatches = 0;
+    for (final keyword in faq.keywords) {
+      final kwLower = keyword.toLowerCase().trim();
+      if (queryLower.contains(kwLower) || kwLower.contains(queryLower)) {
+        keywordMatches++;
+      }
+    }
+
+    if (keywordMatches >= 2) {
+      final ratio = keywordMatches / faq.keywords.length;
+      return SearchResult(faq, 0.85 * ratio, 'multi_keywords');
+    }
+
+    // Strategy 6: Token overlap
+    if (queryTokens.length >= 2) {
+      final questionTokens = StringMatcher.tokenize(faq.question);
+      int tokenMatches = 0;
+
+      for (final qt in queryTokens) {
+        if (questionTokens.contains(qt)) {
+          tokenMatches++;
+        }
+      }
+
+      if (tokenMatches >= 2) {
+        final ratio = tokenMatches / queryTokens.length;
+        if (ratio >= 0.5) {
+          return SearchResult(faq, 0.75 * ratio, 'token_overlap');
+        }
+      }
+    }
+
+    // Strategy 7: Fuzzy similarity
+    final similarity = StringMatcher.calculateSimilarity(
+      queryNormalized,
+      questionNormalized,
+    );
+
+    if (similarity >= 0.7) {
+      return SearchResult(faq, similarity * 0.7, 'high_similarity');
+    }
+
+    // Strategy 8: Single keyword fallback
+    if (keywordMatches == 1 && queryTokens.length <= 2) {
+      return SearchResult(faq, 0.4, 'single_keyword');
+    }
+
+    return null;
   }
 
   List<FaqItem> getPinnedFaqs() {
@@ -115,27 +192,5 @@ class FaqSearchEngine {
     }
 
     return related.take(limit).toList();
-  }
-
-  bool _hasExactKeywordMatch(FaqItem faq, String query) {
-    return faq.keywords.any((kw) => query.contains(kw.toLowerCase()));
-  }
-
-  bool _matchesAlternativeQuestion(FaqItem faq, String query) {
-    return faq.alternativeQuestions.any(
-          (alt) => StringMatcher.normalize(alt).contains(query) ||
-          query.contains(StringMatcher.normalize(alt)),
-    );
-  }
-
-  bool _hasTokenOverlap(FaqItem faq, List<String> queryTokens) {
-    final questionTokens = StringMatcher.tokenize(faq.question);
-    return queryTokens.any((qt) => questionTokens.contains(qt));
-  }
-
-  double _calculateTokenOverlapScore(FaqItem faq, List<String> queryTokens) {
-    final questionTokens = StringMatcher.tokenize(faq.question);
-    final overlap = queryTokens.where((qt) => questionTokens.contains(qt)).length;
-    return overlap / queryTokens.length;
   }
 }
