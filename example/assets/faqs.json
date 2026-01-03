@@ -1,0 +1,124 @@
+{
+  "faqs": [
+    {
+      "id": "1",
+      "question": "How do I activate my ICEcard?",
+      "answer": "To activate your ICEcard, download the ICEcard app from App Store or Google Play, create an account, and follow the activation steps. You'll need your card number and the activation code sent to your email.",
+      "keywords": ["activate", "activation", "enable", "start"],
+      "alternativeQuestions": [
+        "How to activate card",
+        "Enable my card",
+        "Start using ICEcard"
+      ],
+      "category": "Getting Started",
+      "popularity": 100,
+      "isPinned": true,
+      "relatedQuestionIds": ["2", "3"]
+    },
+    {
+      "id": "2",
+      "question": "What are the fees for using ICEcard?",
+      "answer": "ICEcard has no monthly fees, no foreign transaction fees, and no ATM withdrawal fees at partner locations. A 2% fee applies for currency conversion and $3 for ATM withdrawals at non-partner locations.",
+      "keywords": ["fees", "charges", "cost", "price", "money"],
+      "alternativeQuestions": [
+        "What does it cost",
+        "Are there charges",
+        "ICEcard pricing"
+      ],
+      "category": "Fees & Charges",
+      "popularity": 95,
+      "isPinned": true,
+      "relatedQuestionIds": ["4", "5"]
+    },
+    {
+      "id": "3",
+      "question": "How do I reset my PIN?",
+      "answer": "You can reset your PIN in the ICEcard app: Go to Settings > Security > Change PIN. You'll need to verify your identity using biometric authentication or your password.",
+      "keywords": ["pin", "reset", "forgot", "change", "password"],
+      "alternativeQuestions": [
+        "Forgot my PIN",
+        "Change PIN number",
+        "Reset password"
+      ],
+      "category": "Security",
+      "popularity": 85,
+      "isPinned": true,
+      "relatedQuestionIds": ["1"]
+    },
+    {
+      "id": "4",
+      "question": "Where can I use my ICEcard?",
+      "answer": "ICEcard is accepted anywhere Visa is accepted worldwide - in stores, online, and at ATMs. You can also add it to Apple Pay, Google Pay, and Samsung Pay for contactless payments.",
+      "keywords": ["use", "where", "accepted", "locations", "stores"],
+      "alternativeQuestions": [
+        "Where is it accepted",
+        "Can I use it online",
+        "International use"
+      ],
+      "category": "General",
+      "popularity": 80,
+      "isPinned": false,
+      "relatedQuestionIds": ["2"]
+    },
+    {
+      "id": "5",
+      "question": "How do I load money onto my ICEcard?",
+      "answer": "You can load money through: 1) Bank transfer (ACH), 2) Direct deposit, 3) Cash deposit at partner locations, or 4) Transfer from another ICEcard user. Go to 'Add Money' in the app to see all options.",
+      "keywords": ["load", "add money", "deposit", "transfer", "fund"],
+      "alternativeQuestions": [
+        "Add funds",
+        "Top up card",
+        "Deposit money"
+      ],
+      "category": "Transactions",
+      "popularity": 90,
+      "isPinned": false,
+      "relatedQuestionIds": ["2", "4"]
+    },
+    {
+      "id": "6",
+      "question": "What should I do if my card is lost or stolen?",
+      "answer": "Immediately freeze your card in the ICEcard app (Cards > Freeze Card) or call our 24/7 support at 1-800-ICE-CARD. Then report it as lost/stolen in the app to order a replacement card.",
+      "keywords": ["lost", "stolen", "missing", "freeze", "block"],
+      "alternativeQuestions": [
+        "Card is missing",
+        "Someone stole my card",
+        "Block my card"
+      ],
+      "category": "Security",
+      "popularity": 75,
+      "isPinned": false,
+      "relatedQuestionIds": ["3"]
+    },
+    {
+      "id": "7",
+      "question": "How long does it take to receive my card?",
+      "answer": "Standard delivery takes 5-7 business days. Express shipping (2-3 business days) is available for $15. You can track your card shipment in the app under 'Card Status'.",
+      "keywords": ["delivery", "shipping", "receive", "mail", "arrive"],
+      "alternativeQuestions": [
+        "When will I get my card",
+        "Shipping time",
+        "Card delivery"
+      ],
+      "category": "Getting Started",
+      "popularity": 70,
+      "isPinned": false,
+      "relatedQuestionIds": ["1"]
+    },
+    {
+      "id": "8",
+      "question": "Can I use ICEcard for international purchases?",
+      "answer": "Yes! ICEcard works in 200+ countries with no foreign transaction fees. Currency conversion happens at competitive rates with a 2% conversion fee. You can view real-time exchange rates in the app.",
+      "keywords": ["international", "foreign", "abroad", "travel", "overseas"],
+      "alternativeQuestions": [
+        "Use abroad",
+        "Foreign transactions",
+        "Travel with ICEcard"
+      ],
+      "category": "Transactions",
+      "popularity": 65,
+      "isPinned": false,
+      "relatedQuestionIds": ["2", "4"]
+    }
+  ]
+}
