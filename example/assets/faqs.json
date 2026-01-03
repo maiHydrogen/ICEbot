@@ -2,123 +2,403 @@
   "faqs": [
     {
       "id": "1",
-      "question": "How do I activate my ICEcard?",
-      "answer": "To activate your ICEcard, download the ICEcard app from App Store or Google Play, create an account, and follow the activation steps. You'll need your card number and the activation code sent to your email.",
-      "keywords": ["activate", "activation", "enable", "start"],
+      "question": "What is the ICEcard app?",
+      "answer": "ICEcard (In Case of Emergency Card) is an 'Emergency as a Service (EaSe)' platform and mobile application that securely stores your emergency contact details, medical conditions, allergies and other critical information. It enables first responders and doctors to access this information quickly in case of an emergency, accident, or if you're unconscious due to any health issue.",
+      "keywords": ["icecard", "what is", "emergency", "app", "ease", "emergency service"],
       "alternativeQuestions": [
-        "How to activate card",
-        "Enable my card",
-        "Start using ICEcard"
+        "What does ICEcard do",
+        "Tell me about ICEcard",
+        "ICEcard purpose",
+        "What is this app for"
       ],
-      "category": "Getting Started",
+      "category": "General",
       "popularity": 100,
       "isPinned": true,
-      "relatedQuestionIds": ["2", "3"]
+      "relatedQuestionIds": ["2", "3", "4"]
     },
     {
       "id": "2",
-      "question": "What are the fees for using ICEcard?",
-      "answer": "ICEcard has no monthly fees, no foreign transaction fees, and no ATM withdrawal fees at partner locations. A 2% fee applies for currency conversion and $3 for ATM withdrawals at non-partner locations.",
-      "keywords": ["fees", "charges", "cost", "price", "money"],
+      "question": "Who should use the ICEcard app?",
+      "answer": "Every individual is encouraged to use the app to ensure essential health, medical and emergency contact information is available when needed—in normal life, office work, during travel, fieldwork or in case of onsite incidents. It's beneficial for students, employees, travelers, people with medical conditions, parents of young children, and caregivers of elderly persons.",
+      "keywords": ["who", "users", "everyone", "should use", "beneficial"],
       "alternativeQuestions": [
-        "What does it cost",
-        "Are there charges",
-        "ICEcard pricing"
+        "Who needs ICEcard",
+        "Is ICEcard for me",
+        "Who can use this app",
+        "Target users"
       ],
-      "category": "Fees & Charges",
+      "category": "General",
       "popularity": 95,
       "isPinned": true,
-      "relatedQuestionIds": ["4", "5"]
+      "relatedQuestionIds": ["1", "3", "10"]
     },
     {
       "id": "3",
-      "question": "How do I reset my PIN?",
-      "answer": "You can reset your PIN in the ICEcard app: Go to Settings > Security > Change PIN. You'll need to verify your identity using biometric authentication or your password.",
-      "keywords": ["pin", "reset", "forgot", "change", "password"],
+      "question": "How does ICEcard benefit me?",
+      "answer": "ICEcard ensures your safety by: (1) Providing instant access to emergency contacts, (2) Displaying your primary health information to first responders or doctors in emergencies, (3) Helping friends, colleagues, HR or admin act quickly during critical situations, and (4) Enhancing social responsibility and wellbeing standards for individuals, students, and employees.",
+      "keywords": ["benefits", "advantages", "why use", "safety", "help"],
       "alternativeQuestions": [
-        "Forgot my PIN",
-        "Change PIN number",
-        "Reset password"
+        "What are the benefits",
+        "Why should I use ICEcard",
+        "How does it help me",
+        "ICEcard advantages"
       ],
-      "category": "Security",
-      "popularity": 85,
+      "category": "General",
+      "popularity": 90,
       "isPinned": true,
-      "relatedQuestionIds": ["1"]
+      "relatedQuestionIds": ["1", "2", "4"]
     },
     {
       "id": "4",
-      "question": "Where can I use my ICEcard?",
-      "answer": "ICEcard is accepted anywhere Visa is accepted worldwide - in stores, online, and at ATMs. You can also add it to Apple Pay, Google Pay, and Samsung Pay for contactless payments.",
-      "keywords": ["use", "where", "accepted", "locations", "stores"],
+      "question": "What information can I store in ICEcard?",
+      "answer": "You can store: Emergency contact names and numbers, Blood type, allergies and chronic conditions, ongoing medications and health issues, medical prescriptions, Medical and Term insurance details, Family and legacy contact information, Photos of minor children or elderly (Alzheimer patients), Employee ID or company emergency contacts, Vehicle and driver information, and Family doctor details.",
+      "keywords": ["store", "information", "data", "save", "details", "what to add"],
       "alternativeQuestions": [
-        "Where is it accepted",
-        "Can I use it online",
-        "International use"
+        "What can I add to ICEcard",
+        "What details to store",
+        "Information I can save",
+        "What data goes in ICEcard"
       ],
-      "category": "General",
-      "popularity": 80,
-      "isPinned": false,
-      "relatedQuestionIds": ["2"]
+      "category": "App Features",
+      "popularity": 85,
+      "isPinned": true,
+      "relatedQuestionIds": ["5", "6", "8"]
     },
     {
       "id": "5",
-      "question": "How do I load money onto my ICEcard?",
-      "answer": "You can load money through: 1) Bank transfer (ACH), 2) Direct deposit, 3) Cash deposit at partner locations, or 4) Transfer from another ICEcard user. Go to 'Add Money' in the app to see all options.",
-      "keywords": ["load", "add money", "deposit", "transfer", "fund"],
+      "question": "How does the Face Scan feature work?",
+      "answer": "No one needs to touch your phone or wallet. Your face acts as your unique QR code. Any first responder or doctor can use their own phone with the ICEcard app to scan your face and instantly access ONLY the primary health information you've chosen to share publicly. This ensures quick emergency response without compromising your privacy.",
+      "keywords": ["face scan", "scan", "qr code", "access", "how it works", "facial recognition"],
       "alternativeQuestions": [
-        "Add funds",
-        "Top up card",
-        "Deposit money"
+        "How to scan face",
+        "Does someone need my phone",
+        "Face recognition feature",
+        "How do others access my info"
       ],
-      "category": "Transactions",
-      "popularity": 90,
+      "category": "App Features",
+      "popularity": 88,
       "isPinned": false,
-      "relatedQuestionIds": ["2", "4"]
+      "relatedQuestionIds": ["4", "7", "9"]
     },
     {
       "id": "6",
-      "question": "What should I do if my card is lost or stolen?",
-      "answer": "Immediately freeze your card in the ICEcard app (Cards > Freeze Card) or call our 24/7 support at 1-800-ICE-CARD. Then report it as lost/stolen in the app to order a replacement card.",
-      "keywords": ["lost", "stolen", "missing", "freeze", "block"],
+      "question": "How often should I update my ICEcard details?",
+      "answer": "It's recommended to review and update your information whenever there's any change in your health, medication, emergency contacts, medical status, insurance policy, or any other information of concern to you. Regular updates ensure first responders always have accurate, life-saving information.",
+      "keywords": ["update", "change", "modify", "edit", "refresh", "how often"],
       "alternativeQuestions": [
-        "Card is missing",
-        "Someone stole my card",
-        "Block my card"
+        "When to update ICEcard",
+        "How to change information",
+        "Update frequency",
+        "Modify my details"
       ],
-      "category": "Security",
-      "popularity": 75,
+      "category": "App Features",
+      "popularity": 70,
       "isPinned": false,
-      "relatedQuestionIds": ["3"]
+      "relatedQuestionIds": ["4", "13"]
     },
     {
       "id": "7",
-      "question": "How long does it take to receive my card?",
-      "answer": "Standard delivery takes 5-7 business days. Express shipping (2-3 business days) is available for $15. You can track your card shipment in the app under 'Card Status'.",
-      "keywords": ["delivery", "shipping", "receive", "mail", "arrive"],
+      "question": "Is my information safe in the ICEcard app?",
+      "answer": "Yes. ICEcard uses Amazon Web Services (AWS) servers and encryption to keep your data secure. We are continuously working to enhance safety and security with blockchain technology. Your data privacy is our top priority.",
+      "keywords": ["safe", "security", "privacy", "secure", "data protection", "encryption"],
       "alternativeQuestions": [
-        "When will I get my card",
-        "Shipping time",
-        "Card delivery"
+        "Is ICEcard secure",
+        "Data security",
+        "Privacy protection",
+        "Is my data safe"
       ],
-      "category": "Getting Started",
-      "popularity": 70,
-      "isPinned": false,
-      "relatedQuestionIds": ["1"]
+      "category": "Privacy & Security",
+      "popularity": 92,
+      "isPinned": true,
+      "relatedQuestionIds": ["8", "9"]
     },
     {
       "id": "8",
-      "question": "Can I use ICEcard for international purchases?",
-      "answer": "Yes! ICEcard works in 200+ countries with no foreign transaction fees. Currency conversion happens at competitive rates with a 2% conversion fee. You can view real-time exchange rates in the app.",
-      "keywords": ["international", "foreign", "abroad", "travel", "overseas"],
+      "question": "Does ICEcard share my data with HR or management?",
+      "answer": "No. Your data remains private and is not automatically shared with HR or company management unless you choose to provide it voluntarily or in an emergency. When information is accessed for emergency purposes by HR, admin, or any first responder, both you and your emergency contacts are notified with the accessor's name, contact number, date, and time.",
+      "keywords": ["share", "hr", "management", "privacy", "company", "data sharing"],
       "alternativeQuestions": [
-        "Use abroad",
-        "Foreign transactions",
-        "Travel with ICEcard"
+        "Who can see my data",
+        "Does company access my info",
+        "Data sharing with employer",
+        "Privacy from company"
       ],
-      "category": "Transactions",
+      "category": "Privacy & Security",
+      "popularity": 78,
+      "isPinned": false,
+      "relatedQuestionIds": ["7", "9", "10"]
+    },
+    {
+      "id": "9",
+      "question": "Can the information on ICEcard be misused?",
+      "answer": "We take all precautions to safeguard your data. When any ICEcard user scans a person's face in an emergency, that scanner's identity and phone number are shared with ICE contacts. Only your primary health info is disclosed to first responders and doctors. We are always working to enhance safety, security, and prevent misuse.",
+      "keywords": ["misuse", "abuse", "security", "protection", "safety"],
+      "alternativeQuestions": [
+        "Is there risk of misuse",
+        "Can someone misuse my data",
+        "Data protection from misuse",
+        "Safety from abuse"
+      ],
+      "category": "Privacy & Security",
+      "popularity": 75,
+      "isPinned": false,
+      "relatedQuestionIds": ["7", "8"]
+    },
+    {
+      "id": "10",
+      "question": "Is using ICEcard mandatory for employees or students?",
+      "answer": "Not mandatory, but it is highly recommended as part of employee or student safety protocols and people wellbeing initiatives. We continually enhance wellbeing services. It's especially useful for those who commute daily, travel, work in remote locations, or have known medical conditions.",
+      "keywords": ["mandatory", "required", "optional", "employee", "student", "compulsory"],
+      "alternativeQuestions": [
+        "Do I have to use ICEcard",
+        "Is it compulsory",
+        "Mandatory for employees",
+        "Required for students"
+      ],
+      "category": "Corporate & Institutional",
+      "popularity": 82,
+      "isPinned": false,
+      "relatedQuestionIds": ["2", "11", "12"]
+    },
+    {
+      "id": "11",
+      "question": "Can I use ICEcard during travel?",
+      "answer": "Absolutely. ICEcard is designed for emergencies anywhere. It helps ensure first responders, colleagues, or any person with the ICEcard app can help you regardless of location. It's useful for hotel staff or visiting business colleagues if any medical condition or emergency happens—they'll know who to contact.",
+      "keywords": ["travel", "business trip", "abroad", "anywhere", "location", "international"],
+      "alternativeQuestions": [
+        "Using ICEcard while traveling",
+        "ICEcard for business travel",
+        "Works in other countries",
+        "Travel emergency"
+      ],
+      "category": "Corporate & Institutional",
+      "popularity": 68,
+      "isPinned": false,
+      "relatedQuestionIds": ["2", "10"]
+    },
+    {
+      "id": "12",
+      "question": "Is there any cost for ICEcard app?",
+      "answer": "Presently, there is no cost to employees or students. All features and benefits are as per the agreement with your organization or institution. Any future changes in service, benefits, or cost implications will be communicated by the relevant authorities.",
+      "keywords": ["cost", "price", "free", "payment", "charges", "fees"],
+      "alternativeQuestions": [
+        "Is ICEcard free",
+        "How much does it cost",
+        "Pricing",
+        "Do I pay for ICEcard"
+      ],
+      "category": "Corporate & Institutional",
+      "popularity": 80,
+      "isPinned": false,
+      "relatedQuestionIds": ["10", "13"]
+    },
+    {
+      "id": "13",
+      "question": "What if I change devices or leave the company?",
+      "answer": "If your mobile number remains the same, all data stays with you. You can change profile information if you plan to change organizations or institutes. If you leave, your ICEcard remains yours—you can continue using it privately. If changing mobile numbers, contact ICEcard support for verification or create a new profile with updated data.",
+      "keywords": ["change device", "new phone", "leave company", "switch", "transfer"],
+      "alternativeQuestions": [
+        "Changing phones",
+        "New device setup",
+        "Left my company",
+        "Transfer to new phone"
+      ],
+      "category": "Corporate & Institutional",
       "popularity": 65,
       "isPinned": false,
-      "relatedQuestionIds": ["2", "4"]
+      "relatedQuestionIds": ["6", "14", "15"]
+    },
+    {
+      "id": "14",
+      "question": "Who do I contact for app issues?",
+      "answer": "For technical or app-specific issues, reach out to ICEcard's support team via the app or website at https://icecard.in/. For company-related information, contact your admin or HR department.",
+      "keywords": ["support", "help", "contact", "technical issue", "problem", "customer service"],
+      "alternativeQuestions": [
+        "Get help with app",
+        "Technical support",
+        "Contact support",
+        "App not working"
+      ],
+      "category": "Technical Support",
+      "popularity": 72,
+      "isPinned": false,
+      "relatedQuestionIds": ["15"]
+    },
+    {
+      "id": "15",
+      "question": "Is ICEcard compatible with all smartphones?",
+      "answer": "ICEcard is available for both Android and iOS platforms. Please ensure your operating system is up to date for the best experience. You can download it from Google Play Store or Apple App Store.",
+      "keywords": ["compatibility", "android", "ios", "iphone", "smartphone", "device"],
+      "alternativeQuestions": [
+        "Works on iPhone",
+        "Android compatible",
+        "Which phones supported",
+        "Device compatibility"
+      ],
+      "category": "Technical Support",
+      "popularity": 76,
+      "isPinned": false,
+      "relatedQuestionIds": ["14", "16"]
+    },
+    {
+      "id": "16",
+      "question": "How do I download the ICEcard app?",
+      "answer": "You can download ICEcard from: Android - Google Play Store (https://play.google.com/store/apps/details?id=com.rannlab.ice_card.ice_card), iPhone - Apple App Store (https://apps.apple.com/in/app/ice-card-app/id6736453602). Visit our website at https://icecard.in/ for more information.",
+      "keywords": ["download", "install", "get app", "app store", "play store", "links"],
+      "alternativeQuestions": [
+        "Where to download",
+        "How to install ICEcard",
+        "Get the app",
+        "Download links"
+      ],
+      "category": "Getting Started",
+      "popularity": 98,
+      "isPinned": true,
+      "relatedQuestionIds": ["15", "17"]
+    },
+    {
+      "id": "17",
+      "question": "How do I set up my ICEcard profile?",
+      "answer": "After downloading the app, create an account with your mobile number. Then customize your medical profile by adding emergency contacts, blood type, allergies, ongoing medications, insurance details, and any other critical information you want available in emergencies. You control what information is public and what remains private.",
+      "keywords": ["setup", "profile", "account", "register", "create", "getting started"],
+      "alternativeQuestions": [
+        "Create profile",
+        "Set up account",
+        "Register on ICEcard",
+        "First time setup"
+      ],
+      "category": "Getting Started",
+      "popularity": 94,
+      "isPinned": true,
+      "relatedQuestionIds": ["4", "6", "16"]
+    },
+    {
+      "id": "18",
+      "question": "What are the key features of ICEcard?",
+      "answer": "Key features include: (1) Face Scan for instant emergency info access, (2) Emergency contacts and health information storage, (3) Customizable medical profile, (4) Blood donation requests and donor search, (5) Add profiles for children or elderly without phones, (6) Call/Track ambulance services, (7) Nearby emergency service providers, (8) Vehicle owner contact info, (9) Public and private information controls, and (10) Corporate customization for employee wellbeing.",
+      "keywords": ["features", "capabilities", "what can it do", "functions", "services"],
+      "alternativeQuestions": [
+        "ICEcard features",
+        "What does ICEcard offer",
+        "App capabilities",
+        "Available services"
+      ],
+      "category": "App Features",
+      "popularity": 87,
+      "isPinned": false,
+      "relatedQuestionIds": ["1", "4", "5"]
+    },
+    {
+      "id": "19",
+      "question": "Can I add my children or elderly parents to ICEcard?",
+      "answer": "Yes! You can add profiles for minor children, spouse, or elderly (Alzheimer patients) who don't have mobile phones. If they are lost, any ICEcard user can scan their face and contact you immediately. This feature helps prevent child trafficking and ensures quick reunification with missing loved ones.",
+      "keywords": ["children", "kids", "elderly", "parents", "alzheimer", "missing", "lost"],
+      "alternativeQuestions": [
+        "Add child profile",
+        "Register elderly parent",
+        "Lost child feature",
+        "Family members without phones"
+      ],
+      "category": "App Features",
+      "popularity": 84,
+      "isPinned": false,
+      "relatedQuestionIds": ["4", "5"]
+    },
+    {
+      "id": "20",
+      "question": "How does the blood donation feature work?",
+      "answer": "ICEcard allows you to request blood in emergency situations and also register as a blood donor. When someone nearby needs your blood type urgently, you'll be notified. You can also search for blood donors in your area when needed. This creates a community of life-savers ready to help in critical moments.",
+      "keywords": ["blood", "donation", "donor", "emergency", "request blood", "donate"],
+      "alternativeQuestions": [
+        "Request blood",
+        "Blood donor registration",
+        "Find blood donors",
+        "Donate blood"
+      ],
+      "category": "Emergency Services",
+      "popularity": 73,
+      "isPinned": false,
+      "relatedQuestionIds": ["18", "21"]
+    },
+    {
+      "id": "21",
+      "question": "Can I track ambulances through ICEcard?",
+      "answer": "Yes, ICEcard allows you to call and track emergency services including ambulances. You can get support from nearby emergency service providers. Future developments include AI-powered features and drone ambulance services for faster emergency response.",
+      "keywords": ["ambulance", "track", "emergency services", "call ambulance", "location"],
+      "alternativeQuestions": [
+        "Call ambulance",
+        "Track emergency services",
+        "Ambulance location",
+        "Emergency response tracking"
+      ],
+      "category": "Emergency Services",
+      "popularity": 77,
+      "isPinned": false,
+      "relatedQuestionIds": ["18", "20"]
+    },
+    {
+      "id": "22",
+      "question": "What is the vehicle owner contact feature?",
+      "answer": "You can store your vehicle number and driver information in ICEcard. If your vehicle meets with an accident or is wrongly parked, anyone with ICEcard can scan a QR code or use the app to find the vehicle owner's contact details and reach you immediately. This helps in emergency situations and resolving parking issues quickly.",
+      "keywords": ["vehicle", "car", "bike", "accident", "parking", "owner contact"],
+      "alternativeQuestions": [
+        "Vehicle registration",
+        "Car accident feature",
+        "Wrong parking contact",
+        "Vehicle owner info"
+      ],
+      "category": "App Features",
+      "popularity": 62,
+      "isPinned": false,
+      "relatedQuestionIds": ["4", "5"]
+    },
+    {
+      "id": "23",
+      "question": "What is legacy contact and critical information feature?",
+      "answer": "You can designate family and legacy contacts who will have access to critical information in case of extreme emergencies. This includes term insurance policies, crypto wallets, financial information, or any other valuable data you want your dependents to access if something happens to you. This ensures your loved ones aren't left struggling for critical information.",
+      "keywords": ["legacy", "critical information", "dependents", "insurance", "financial", "family"],
+      "alternativeQuestions": [
+        "Legacy contacts",
+        "Information for family",
+        "Critical data for dependents",
+        "What happens to my info"
+      ],
+      "category": "App Features",
+      "popularity": 58,
+      "isPinned": false,
+      "relatedQuestionIds": ["4", "7"]
+    },
+    {
+      "id": "24",
+      "question": "Can family members also use ICEcard?",
+      "answer": "YES! ICEcard is beneficial for every individual—old, young, or child. It is extremely useful and highly recommended to register your minor children and girls who are most vulnerable. Each family member can have their own profile with appropriate emergency information.",
+      "keywords": ["family", "members", "everyone", "children", "register family"],
+      "alternativeQuestions": [
+        "Register family members",
+        "Family accounts",
+        "Multiple users",
+        "Whole family on ICEcard"
+      ],
+      "category": "General",
+      "popularity": 69,
+      "isPinned": false,
+      "relatedQuestionIds": ["2", "19"]
+    },
+    {
+      "id": "25",
+      "question": "What notifications will I receive?",
+      "answer": "You and your emergency contacts will receive instant notifications when your face is scanned in an emergency. The notification includes the name, contact number, date, and time of the person who accessed your information. This ensures transparency and allows your contacts to respond quickly to help you.",
+      "keywords": ["notifications", "alerts", "emergency alert", "face scan alert", "contact notification"],
+      "alternativeQuestions": [
+        "What alerts do I get",
+        "Emergency notifications",
+        "When am I notified",
+        "Alert system"
+      ],
+      "category": "App Features",
+      "popularity": 66,
+      "isPinned": false,
+      "relatedQuestionIds": ["5", "7", "8"]
     }
   ]
 }

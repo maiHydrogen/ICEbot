@@ -22,8 +22,9 @@ class ChatBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Row(
-        mainAxisAlignment:
-        isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           if (!isUser) _buildAvatar(isUser),
@@ -38,25 +39,24 @@ class ChatBubble extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   color: isUser ? theme.userBubbleColor : theme.botBubbleColor,
-                  borderRadius: BorderRadius.circular(theme.borderRadius).copyWith(
-                    bottomLeft: isUser
-                        ? Radius.circular(theme.borderRadius)
-                        : Radius.zero,
-                    bottomRight: isUser
-                        ? Radius.zero
-                        : Radius.circular(theme.borderRadius),
-                  ),
-                  border: isUser
-                      ? Border.all(color: Colors.black12)
-                      : null,
+                  borderRadius: BorderRadius.circular(theme.borderRadius)
+                      .copyWith(
+                        bottomLeft: isUser
+                            ? Radius.circular(theme.borderRadius)
+                            : Radius.zero,
+                        bottomRight: isUser
+                            ? Radius.zero
+                            : Radius.circular(theme.borderRadius),
+                      ),
+                  border: isUser ? Border.all(color: Colors.black12) : null,
                   boxShadow: theme.bubbleElevation > 0
                       ? [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: theme.bubbleElevation,
-                      offset: const Offset(0, 1),
-                    )
-                  ]
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: theme.bubbleElevation,
+                            offset: const Offset(0, 1),
+                          ),
+                        ]
                       : null,
                 ),
                 child: Column(
@@ -88,12 +88,13 @@ class ChatBubble extends StatelessWidget {
   Widget _buildAvatar(bool isUser) {
     return CircleAvatar(
       radius: 16,
-      backgroundColor: isUser ? Colors.grey.shade300 : theme.primaryColor,
-      child: Icon(
-        isUser ? Icons.person : Icons.support_agent,
-        size: 18,
-        color: isUser ? Colors.grey.shade700 : Colors.white,
-      ),
+      backgroundColor: isUser ? Colors.grey.shade300 : Colors.transparent,
+      child: isUser
+          ? Icon(Icons.person, size: 18, color: Colors.grey.shade700)
+          : Image(
+              image: AssetImage('images/plus.png', package: 'icebot'),
+              height: 32,
+            ),
     );
   }
 
