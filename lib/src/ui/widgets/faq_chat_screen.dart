@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../core/controllers/faq_chat_controller.dart';
+import '../../core/models/chat_message.dart';
 import '../../core/models/faq_item.dart';
 import '../theme/chat_theme.dart';
 import 'chat_bubble.dart';
@@ -138,10 +139,7 @@ class _FaqChatScreenState extends State<FaqChatScreen> {
               ),
               const Text(
                 'FAQ Assistant',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: TextStyle(color: Colors.white70, fontSize: 12),
               ),
             ],
           ),
@@ -199,12 +197,80 @@ class _FaqChatScreenState extends State<FaqChatScreen> {
         }
 
         final message = state.messages[index];
-        return ChatBubble(
-          message: message,
-          theme: widget.theme,
-          showTimestamp: widget.controller.config.showTimestamp,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ChatBubble(
+              message: message,
+              theme: widget.theme,
+              showTimestamp: widget.controller.config.showTimestamp,
+            ),
+            _buildBotExtras(message),
+          ],
         );
       },
+    );
+  }
+
+  /// Related-FAQ chips and the "contact support" action rendered beneath a bot
+  /// message.
+  Widget _buildBotExtras(ChatMessage message) {
+    if (message.type != MessageType.bot) return const SizedBox.shrink();
+
+    final related = (message.suggestedFaqIds ?? const <String>[])
+        .map(widget.controller.faqById)
+        .whereType<FaqItem>()
+        .toList();
+
+    final config = widget.controller.config;
+    final showEscalate =
+        message.isUnanswered && config.onEscalateToSupport != null;
+
+    if (related.isEmpty && !showEscalate) return const SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 56, right: 16, top: 4, bottom: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (related.isNotEmpty)
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              children: [
+                for (final faq in related)
+                  ActionChip(
+                    label: Text(
+                      faq.question,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onPressed: () => widget.controller.selectSuggestion(faq),
+                    backgroundColor: widget.theme.botBubbleColor,
+                    side: BorderSide(
+                      color: widget.theme.primaryColor.withValues(alpha: 0.3),
+                    ),
+                    labelStyle: TextStyle(
+                      color: widget.theme.primaryColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+              ],
+            ),
+          if (showEscalate)
+            TextButton.icon(
+              onPressed: widget.controller.escalateToSupport,
+              icon: const Icon(Icons.support_agent, size: 18),
+              label: const Text('Contact support'),
+              style: TextButton.styleFrom(
+                foregroundColor: widget.theme.primaryColor,
+                padding: EdgeInsets.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+            ),
+        ],
+      ),
     );
   }
 
@@ -216,7 +282,11 @@ class _FaqChatScreenState extends State<FaqChatScreen> {
           CircleAvatar(
             radius: 16,
             backgroundColor: widget.theme.primaryColor,
-            child: const Icon(Icons.support_agent, size: 18, color: Colors.white),
+            child: const Icon(
+              Icons.support_agent,
+              size: 18,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(width: 8),
           Container(
@@ -229,7 +299,7 @@ class _FaqChatScreenState extends State<FaqChatScreen> {
               mainAxisSize: MainAxisSize.min,
               children: List.generate(
                 3,
-                    (index) => Padding(
+                (index) => Padding(
                   padding: EdgeInsets.only(left: index > 0 ? 4 : 0),
                   child: _TypingDot(delay: Duration(milliseconds: index * 200)),
                 ),
@@ -246,9 +316,7 @@ class _FaqChatScreenState extends State<FaqChatScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: widget.theme.backgroundColor,
-        border: Border(
-          top: BorderSide(color: Colors.grey.shade300),
-        ),
+        border: Border(top: BorderSide(color: Colors.grey.shade300)),
       ),
       child: Row(
         children: [
@@ -287,11 +355,7 @@ class _FaqChatScreenState extends State<FaqChatScreen> {
                 width: 48,
                 height: 48,
                 alignment: Alignment.center,
-                child: const Icon(
-                  Icons.send,
-                  color: Colors.white,
-                  size: 22,
-                ),
+                child: const Icon(Icons.send, color: Colors.white, size: 22),
               ),
             ),
           ),
@@ -344,7 +408,9 @@ class _TypingDotState extends State<_TypingDot>
           width: 8,
           height: 8,
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.3 + (_controller.value * 0.7)),
+            color: Colors.grey.withValues(
+              alpha: 0.3 + (_controller.value * 0.7),
+            ),
             shape: BoxShape.circle,
           ),
         );

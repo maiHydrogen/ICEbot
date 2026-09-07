@@ -16,7 +16,7 @@ class StringMatcher {
 
     final matrix = List.generate(
       a.length + 1,
-          (i) => List<int>.filled(b.length + 1, 0),
+      (i) => List<int>.filled(b.length + 1, 0),
     );
 
     for (int i = 0; i <= a.length; i++) {
@@ -30,8 +30,8 @@ class StringMatcher {
       for (int j = 1; j <= b.length; j++) {
         final cost = a[i - 1] == b[j - 1] ? 0 : 1;
         matrix[i][j] = [
-          matrix[i - 1][j] + 1,      // deletion
-          matrix[i][j - 1] + 1,      // insertion
+          matrix[i - 1][j] + 1, // deletion
+          matrix[i][j - 1] + 1, // insertion
           matrix[i - 1][j - 1] + cost, // substitution
         ].reduce((a, b) => a < b ? a : b);
       }
@@ -44,8 +44,8 @@ class StringMatcher {
     return text
         .toLowerCase()
         .trim()
-        .replaceAll(RegExp(r'[^\w\s]'), ' ')  // Replace punctuation with space
-        .replaceAll(RegExp(r'\s+'), ' ')       // Collapse multiple spaces
+        .replaceAll(RegExp(r'[^\w\s]'), ' ') // Replace punctuation with space
+        .replaceAll(RegExp(r'\s+'), ' ') // Collapse multiple spaces
         .trim();
   }
 

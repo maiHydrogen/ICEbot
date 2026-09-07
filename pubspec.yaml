@@ -1,16 +1,25 @@
 name: icebot
-description: "A new Flutter package project."
+description: >-
+  An offline, rule-based FAQ chatbot widget for Flutter apps: multi-strategy
+  question matching, themeable Material chat UI, and pluggable FAQ data sources.
 version: 0.0.1
-homepage:
+homepage: https://github.com/maiHydrogen/ICEbot
+repository: https://github.com/maiHydrogen/ICEbot
+issue_tracker: https://github.com/maiHydrogen/ICEbot/issues
+topics:
+  - chatbot
+  - faq
+  - chat
+  - support
+  - widget
 
 environment:
   sdk: ^3.9.0
-  flutter: ">=1.17.0"
+  flutter: ">=3.27.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  string_similarity: ^2.1.1
 
 dev_dependencies:
   flutter_test:

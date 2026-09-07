@@ -19,18 +19,9 @@ class ChatTheme {
     this.userBubbleColor = Colors.white,
     this.botBubbleColor = const Color(0xFFF5F5F5),
     this.backgroundColor = Colors.white,
-    this.userTextStyle = const TextStyle(
-      color: Colors.black87,
-      fontSize: 14,
-    ),
-    this.botTextStyle = const TextStyle(
-      color: Colors.black87,
-      fontSize: 14,
-    ),
-    this.timestampStyle = const TextStyle(
-      color: Colors.grey,
-      fontSize: 11,
-    ),
+    this.userTextStyle = const TextStyle(color: Colors.black87, fontSize: 14),
+    this.botTextStyle = const TextStyle(color: Colors.black87, fontSize: 14),
+    this.timestampStyle = const TextStyle(color: Colors.grey, fontSize: 11),
     this.borderRadius = 16.0,
     this.bubbleElevation = 0.0,
   });
@@ -40,8 +31,8 @@ class ChatTheme {
       primaryColor: scheme.primary,
       secondaryColor: scheme.secondary,
       userBubbleColor: scheme.primaryContainer,
-      botBubbleColor: scheme.surfaceVariant,
-      backgroundColor: scheme.background,
+      botBubbleColor: scheme.surfaceContainerHighest,
+      backgroundColor: scheme.surface,
     );
   }
 }

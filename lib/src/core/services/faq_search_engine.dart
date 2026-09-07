@@ -47,15 +47,14 @@ class FaqSearchEngine {
     final queryTokens = StringMatcher.tokenize(query);
 
     for (final faq in candidates) {
-      SearchResult? result = _matchFaq(
+      final SearchResult? result = _matchFaq(
         faq,
         queryLower,
         queryNormalized,
         queryTokens,
-        threshold,
       );
 
-      if (result != null) {
+      if (result != null && result.score >= threshold) {
         results.add(result);
       }
     }
@@ -65,12 +64,11 @@ class FaqSearchEngine {
   }
 
   SearchResult? _matchFaq(
-      FaqItem faq,
-      String queryLower,
-      String queryNormalized,
-      List<String> queryTokens,
-      double threshold,
-      ) {
+    FaqItem faq,
+    String queryLower,
+    String queryNormalized,
+    List<String> queryTokens,
+  ) {
     final questionLower = faq.question.toLowerCase().trim();
     final questionNormalized = StringMatcher.normalize(faq.question);
 
@@ -85,10 +83,12 @@ class FaqSearchEngine {
     }
 
     // Strategy 3: Substring match
-    if (questionNormalized.contains(queryNormalized) && queryNormalized.length > 5) {
+    if (questionNormalized.contains(queryNormalized) &&
+        queryNormalized.length > 5) {
       return SearchResult(faq, 0.95, 'question_contains_query');
     }
-    if (queryNormalized.contains(questionNormalized) && questionNormalized.length > 5) {
+    if (queryNormalized.contains(questionNormalized) &&
+        questionNormalized.length > 5) {
       return SearchResult(faq, 0.93, 'query_contains_question');
     }
 
@@ -101,7 +101,8 @@ class FaqSearchEngine {
         return SearchResult(faq, 0.98, 'exact_alternative');
       }
 
-      if (altNormalized.contains(queryNormalized) && queryNormalized.length > 5) {
+      if (altNormalized.contains(queryNormalized) &&
+          queryNormalized.length > 5) {
         return SearchResult(faq, 0.92, 'alternative_contains');
       }
     }

@@ -11,6 +11,10 @@ class ChatMessage {
   final String? faqId;
   final List<String>? suggestedFaqIds;
 
+  /// True for a bot message that could not be matched to any FAQ. The UI uses
+  /// this to offer a "contact support" action.
+  final bool isUnanswered;
+
   const ChatMessage({
     required this.id,
     required this.content,
@@ -18,6 +22,7 @@ class ChatMessage {
     required this.timestamp,
     this.faqId,
     this.suggestedFaqIds,
+    this.isUnanswered = false,
   });
 
   ChatMessage copyWith({
@@ -27,6 +32,7 @@ class ChatMessage {
     DateTime? timestamp,
     String? faqId,
     List<String>? suggestedFaqIds,
+    bool? isUnanswered,
   }) {
     return ChatMessage(
       id: id ?? this.id,
@@ -35,6 +41,7 @@ class ChatMessage {
       timestamp: timestamp ?? this.timestamp,
       faqId: faqId ?? this.faqId,
       suggestedFaqIds: suggestedFaqIds ?? this.suggestedFaqIds,
+      isUnanswered: isUnanswered ?? this.isUnanswered,
     );
   }
 }

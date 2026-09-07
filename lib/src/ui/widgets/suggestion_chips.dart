@@ -35,7 +35,7 @@ class SuggestionChips extends StatelessWidget {
             ),
             onPressed: () => onSuggestionTap(suggestion),
             backgroundColor: theme.botBubbleColor,
-            side: BorderSide(color: theme.primaryColor.withOpacity(0.3)),
+            side: BorderSide(color: theme.primaryColor.withValues(alpha: 0.3)),
             labelStyle: TextStyle(
               color: theme.primaryColor,
               fontSize: 13,

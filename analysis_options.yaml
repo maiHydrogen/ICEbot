@@ -1,4 +1,15 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  exclude:
+    - build/**
+  language:
+    strict-casts: true
+    strict-raw-types: true
+
+linter:
+  rules:
+    - prefer_relative_imports
+
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

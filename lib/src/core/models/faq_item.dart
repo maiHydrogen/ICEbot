@@ -33,20 +33,23 @@ class FaqItem {
       id: json['id']?.toString() ?? '',
       question: json['question']?.toString() ?? '',
       answer: json['answer']?.toString() ?? '',
-      keywords: (json['keywords'] as List<dynamic>?)
-          ?.map((e) => e.toString())
-          .toList() ??
+      keywords:
+          (json['keywords'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
           const [],
-      alternativeQuestions: (json['alternativeQuestions'] as List<dynamic>?)
-          ?.map((e) => e.toString())
-          .toList() ??
+      alternativeQuestions:
+          (json['alternativeQuestions'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
           const [],
       category: json['category']?.toString(),
       popularity: json['popularity'] as int? ?? 0,
       isPinned: json['isPinned'] as bool? ?? false,
-      relatedQuestionIds: (json['relatedQuestionIds'] as List<dynamic>?)
-          ?.map((e) => e.toString())
-          .toList() ??
+      relatedQuestionIds:
+          (json['relatedQuestionIds'] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
           const [],
       createdAt: json['createdAt'] != null
           ? DateTime.tryParse(json['createdAt'].toString())
@@ -76,7 +79,7 @@ class FaqItem {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is FaqItem && runtimeType == other.runtimeType && id == other.id;
+      other is FaqItem && runtimeType == other.runtimeType && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

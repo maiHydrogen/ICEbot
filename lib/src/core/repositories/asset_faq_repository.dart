@@ -20,10 +20,10 @@ class AssetFaqRepository implements FaqRepository {
       final jsonData = jsonDecode(jsonString) as Map<String, dynamic>;
 
       if (jsonData['faqs'] is! List) {
-        throw FormatException('Invalid FAQ JSON: expected "faqs" array');
+        throw const FormatException('Invalid FAQ JSON: expected "faqs" array');
       }
 
-      _cachedFaqs = (jsonData['faqs'] as List)
+      _cachedFaqs = (jsonData['faqs'] as List<dynamic>)
           .map((json) => FaqItem.fromJson(json as Map<String, dynamic>))
           .toList();
 

@@ -5,7 +5,6 @@ import '../models/faq_item.dart';
 import '../repositories/faq_repository.dart';
 import '../services/faq_search_engine.dart';
 import '../../config/icebot_config.dart';
-import 'package:flutter/foundation.dart';
 
 class FaqChatController extends ChangeNotifier {
   final FaqRepository repository;
@@ -14,10 +13,7 @@ class FaqChatController extends ChangeNotifier {
   FaqSearchEngine? _searchEngine;
   ChatState _state = const ChatState();
 
-  FaqChatController({
-    required this.repository,
-    required this.config,
-  });
+  FaqChatController({required this.repository, required this.config});
 
   ChatState get state => _state;
   bool get isInitialized => _state.isInitialized;
@@ -25,7 +21,7 @@ class FaqChatController extends ChangeNotifier {
   Future<void> initialize() async {
     if (_state.isInitialized) return;
 
-    _updateState(_state.copyWith(isLoading: true));
+    _updateState(_state.copyWith(isLoading: true, clearError: true));
 
     try {
       final faqs = await repository.loadFaqs();
@@ -33,17 +29,16 @@ class FaqChatController extends ChangeNotifier {
 
       final suggestions = _getSuggestions();
 
-      _updateState(ChatState(
-        messages: [_createWelcomeMessage()],
-        suggestions: suggestions,
-        isInitialized: true,
-        isLoading: false,
-      ));
+      _updateState(
+        ChatState(
+          messages: [_createWelcomeMessage()],
+          suggestions: suggestions,
+          isInitialized: true,
+          isLoading: false,
+        ),
+      );
     } catch (e) {
-      _updateState(_state.copyWith(
-        isLoading: false,
-        error: e.toString(),
-      ));
+      _updateState(_state.copyWith(isLoading: false, error: e.toString()));
     }
   }
 
@@ -57,39 +52,53 @@ class FaqChatController extends ChangeNotifier {
       timestamp: DateTime.now(),
     );
 
-    _updateState(_state.copyWith(
-      messages: [..._state.messages, userMessage],
-      isLoading: true,
-    ));
+    _updateState(
+      _state.copyWith(
+        messages: [..._state.messages, userMessage],
+        isLoading: true,
+        clearError: true,
+      ),
+    );
 
     await Future.delayed(config.typingDelay);
 
     final matches = _searchEngine!.search(
       query: text,
-      maxResults: 3,
+      maxResults: config.maxResults,
       threshold: config.matchThreshold,
     );
 
     final botMessage = _createBotResponse(matches);
     final newSuggestions = _getContextualSuggestions(matches);
 
-    _updateState(_state.copyWith(
-      messages: [..._state.messages, botMessage],
-      suggestions: newSuggestions,
-      isLoading: false,
-    ));
+    _updateState(
+      _state.copyWith(
+        messages: [..._state.messages, botMessage],
+        suggestions: newSuggestions,
+        isLoading: false,
+      ),
+    );
   }
 
   void selectSuggestion(FaqItem faq) {
     sendMessage(faq.question);
   }
 
+  /// Looks up a FAQ by id. Returns `null` before [initialize] completes or when
+  /// no FAQ has that id.
+  FaqItem? faqById(String id) => _searchEngine?.getFaqById(id);
+
+  /// Invokes [IcebotConfig.onEscalateToSupport], if one was provided.
+  void escalateToSupport() => config.onEscalateToSupport?.call();
+
   void clearChat() {
-    _updateState(ChatState(
-      messages: [_createWelcomeMessage()],
-      suggestions: _getSuggestions(),
-      isInitialized: true,
-    ));
+    _updateState(
+      ChatState(
+        messages: [_createWelcomeMessage()],
+        suggestions: _getSuggestions(),
+        isInitialized: true,
+      ),
+    );
   }
 
   ChatMessage _createWelcomeMessage() {
@@ -108,6 +117,7 @@ class FaqChatController extends ChangeNotifier {
         content: config.noAnswerMessage,
         type: MessageType.bot,
         timestamp: DateTime.now(),
+        isUnanswered: true,
       );
     }
 
@@ -130,11 +140,13 @@ class FaqChatController extends ChangeNotifier {
       return pinned.take(config.maxSuggestions).toList();
     }
 
+    // Trending can overlap with pinned; FaqItem equality is by id, so a set
+    // keeps the first occurrence and drops duplicates.
     final trending = _searchEngine!.getTrendingFaqs(
-      limit: config.maxSuggestions - pinned.length,
+      limit: config.maxSuggestions,
     );
 
-    return [...pinned, ...trending].take(config.maxSuggestions).toList();
+    return {...pinned, ...trending}.take(config.maxSuggestions).toList();
   }
 
   List<FaqItem> _getContextualSuggestions(List<FaqItem> recentMatches) {
@@ -153,10 +165,5 @@ class FaqChatController extends ChangeNotifier {
   void _updateState(ChatState newState) {
     _state = newState;
     notifyListeners();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }

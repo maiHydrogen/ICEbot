@@ -23,13 +23,14 @@ class ChatState {
     List<FaqItem>? suggestions,
     bool? isLoading,
     String? error,
+    bool clearError = false,
     bool? isInitialized,
   }) {
     return ChatState(
       messages: messages ?? this.messages,
       suggestions: suggestions ?? this.suggestions,
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: clearError ? null : (error ?? this.error),
       isInitialized: isInitialized ?? this.isInitialized,
     );
   }

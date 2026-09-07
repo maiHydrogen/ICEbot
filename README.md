@@ -1,33 +1,36 @@
 # ICEbot FAQ - Flutter Package
 
-A production-ready, intelligent FAQ chatbot package for Flutter applications with advanced search capabilities and beautiful Material Design UI.
+[![CI](https://github.com/maiHydrogen/ICEbot/actions/workflows/ci.yml/badge.svg)](https://github.com/maiHydrogen/ICEbot/actions/workflows/ci.yml)
+
+An offline, rule-based FAQ chatbot package for Flutter applications: multi-strategy
+question matching, a themeable Material Design chat UI, and pluggable FAQ data
+sources. No network calls, no API keys.
 
 ## Features
 
 - **Smart Search**: Multi-strategy matching (exact keywords, fuzzy matching, token overlap, alternative questions) with configurable similarity thresholds
 - **Beautiful UI**: Material Design chat interface with typing indicators, message bubbles, and smooth animations
 - **Fully Customizable**: Theme-able UI components and configurable bot behavior
-- **Production Ready**: No global singletons, proper state management, null-safe, and testable architecture
+- **Well-Structured**: No global singletons, layered architecture, null-safe, and unit-tested search/controller layers
 - **Flexible Data Sources**: Load FAQs from JSON assets, in-memory lists, or easily extend for remote sources
 - **Rich FAQ Model**: Support for categories, pinned FAQs, popularity, related questions, and alternative phrasings
 - **Contextual Suggestions**: Dynamic suggestion chips based on pinned/trending FAQs and conversation context
-- **Accessible**: Semantic labels, keyboard navigation, and copy-to-clipboard support
+- **Copy & Escalate**: Long-press to copy any message; "Contact support" action on unanswered questions
 
 
 ## Installation
 
-Add this to your package's `pubspec.yaml` file:
+ICEbot is not yet published on pub.dev. Add it as a git dependency in your
+app's `pubspec.yaml`:
 
 ```yaml
 dependencies:
-flutter:
-sdk: flutter
-ICEbot:
-git:
-url: https://github.com/maiHydrogen/ICEbot.git
-path: packages/icebot
-ref: main
-# path: ../packages/scoreboard
+  flutter:
+    sdk: flutter
+  icebot:
+    git:
+      url: https://github.com/maiHydrogen/ICEbot.git
+      ref: main
 ```
 
 Then run:
@@ -76,7 +79,7 @@ flutter:
 ### 3. Add Floating Button
 
 ```dart
-import 'package:icebot_faq/icebot_faq.dart';
+import 'package:icebot/icebot.dart';
 
 Scaffold(
   appBar: AppBar(title: Text('My App')),
@@ -218,9 +221,10 @@ IcebotConfig(
   noAnswerMessage: 'Contact support',   // Fallback message
   typingDelay: Duration(milliseconds: 500), // Bot response delay
   maxSuggestions: 3,                    // Suggestion chips count
+  maxResults: 3,                        // FAQ matches per query (1 answer + related)
   matchThreshold: 0.3,                  // Fuzzy match threshold (0.0-1.0)
   showTimestamp: false,                 // Show message timestamps
-  onEscalateToSupport: () {},          // Custom support callback
+  onEscalateToSupport: () {},          // Shows "Contact support" on unanswered questions
 )
 ```
 
@@ -245,14 +249,19 @@ ChatTheme(
 
 ## Search Algorithm
 
-The search engine uses a multi-tier matching strategy with prioritized scoring:[^9]
+`FaqSearchEngine` scores every FAQ against the query and returns the highest
+scorers. Strategies are tried in order of confidence (first match wins per FAQ):
 
-1. **Exact Keyword Match (score: 1.0)**: Query contains FAQ keywords
-2. **Alternative Question Match (score: 0.95)**: Matches alternative phrasings
-3. **Token Overlap (score: 0.7-0.9)**: Common words in question
-4. **Fuzzy Similarity (score: threshold-0.6)**: Levenshtein distance-based matching
+1. **Exact / normalized-exact question match** — `1.0` / `0.99`
+2. **Exact alternative-question match** — `0.98`
+3. **Substring match** between query and question (either direction) — `0.92`–`0.95`
+4. **Multiple keyword hits** — up to `0.85`, scaled by how many keywords matched
+5. **Token overlap** — up to `0.75`, when ≥2 shared words and ≥50% of query tokens match
+6. **Fuzzy (Levenshtein) similarity** — up to `~0.6`, when raw similarity ≥ `0.7`
+7. **Single keyword fallback** — `0.4`, for short queries
 
-Results are sorted by score and limited by `maxResults`.
+Results are sorted by score and truncated to `maxResults`. A query scoring below
+`matchThreshold` against every FAQ produces the `noAnswerMessage` fallback.
 
 ## Updating FAQs
 
@@ -333,6 +342,18 @@ these are future feats to be integrated in package -
 - [ ] Voice input support
 - [ ] Admin dashboard for FAQ management
 
+
+## Development
+
+```bash
+flutter pub get
+dart format .
+flutter analyze
+flutter test
+```
+
+CI runs `dart format`, `flutter analyze` and `flutter test` for both the package
+and the `example/` app on every push and pull request.
 
 ## Contributing
 

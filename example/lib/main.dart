@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:icebot/index.dart';
+import 'package:icebot/icebot.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final GlobalKey<ScaffoldMessengerState> _messengerKey =
+    GlobalKey<ScaffoldMessengerState>();
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,10 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'ICEbot FAQ Demo',
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: _messengerKey,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Color.fromARGB(1, 238, 28, 34),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFFEE1C22)),
         useMaterial3: true,
       ),
       home: const HomePage(),
@@ -39,7 +41,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image(
+            const Image(
               image: AssetImage(
                 'images/logo1.png',
                 package: 'icebot', // Specify package name
@@ -60,12 +62,12 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FaqFloatingButton.fromAsset(
-        icon: Image(
+        icon: const Image(
           image: AssetImage('images/plus.png', package: 'icebot'),
           height: 32,
         ),
         assetPath: 'assets/faqs.json',
-        config: const IcebotConfig(
+        config: IcebotConfig(
           botName: 'ICEbot',
           welcomeMessage:
               'Hello! I\'m ICEbot, your ICEcard assistant. '
@@ -75,6 +77,15 @@ class HomePage extends StatelessWidget {
               'Please contact our support team at support@icecard.com',
           maxSuggestions: 3,
           showTimestamp: false,
+          onEscalateToSupport: () {
+            _messengerKey.currentState
+              ?..hideCurrentSnackBar()
+              ..showSnackBar(
+                const SnackBar(
+                  content: Text('Connecting you to support@icecard.com…'),
+                ),
+              );
+          },
         ),
         theme: ChatTheme(
           primaryColor: Theme.of(context).colorScheme.primary,

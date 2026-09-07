@@ -1,4 +1,6 @@
+/// ICEbot — an offline, rule-based FAQ chatbot widget for Flutter apps.
 library;
+
 // Models
 export 'src/core/models/faq_item.dart';
 export 'src/core/models/chat_message.dart';
